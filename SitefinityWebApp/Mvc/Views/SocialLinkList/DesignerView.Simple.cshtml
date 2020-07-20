@@ -1,0 +1,21 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+<div class="form-group">
+    <label for="image-field" class="m-top-sm">Social Links</label>
+
+    <sf-list-selector sf-dynamic-items-selector
+                      sf-item-type="'Telerik.Sitefinity.DynamicTypes.Model.Socialmediafooter.Sociallink'"
+                      sf-master="false"
+                      sf-multiselect="true"
+                      sf-sortable="true"
+                      sf-selected-items="uspSelector.selectedItems"
+                      sf-selected-item-ids="uspSelector.selectedItemsId"
+                      sf-provider="provider"></sf-list-selector>
+
+</div>
+
+
+

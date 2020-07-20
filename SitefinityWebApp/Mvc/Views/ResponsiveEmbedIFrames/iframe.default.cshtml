@@ -1,0 +1,18 @@
+﻿@model  SitefinityWebApp.Mvc.Models.ResponsiveEmbedIFramesModel
+
+
+
+<section class="widget-base iframe-widget">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="rounded border p-6">
+                    <h2 class="mb-4">@Model.Title</h2>
+
+                    <iframe height="@Model.Height" class="iframe-widget__item" src="@Model.ContentUrl" frameborder="0"></iframe>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,15 @@
+<div class="col-10 col-md-4 card-list__card-wrapper">
+    <a href="@Model.LinkUrl" class="card card--contextual rounded mt-3">
+        <div class="card__image-wrapper">
+            
+            <img src="@(Model.ImageUrl == string.Empty ? "/ResourcePackages/Bootstrap4/assets/images/card-default.jpg" : Model.ImageUrl)" alt="@(Model.ImageAlt == string.Empty ? Model.CardTitle : Model.ImageAlt)" />
+
+        </div>
+        <div class="card__content-wrapper px-3 py-2">
+            <p class="h4 mb-1">@Model.CardTitle</p>
+            <p class="mb-4">@Model.CardDescription</p>
+        
+            <span class="card__more read-more mt-auto">@Model.CardButtonText</span>
+        </div>
+    </a>
+</div>

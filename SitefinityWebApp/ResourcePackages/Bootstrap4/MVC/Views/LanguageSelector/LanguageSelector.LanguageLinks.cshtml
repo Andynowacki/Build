@@ -1,0 +1,56 @@
+﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector.LanguageSelectorViewModel
+@using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using System.Globalization;
+@using System.Threading;
+
+@{
+    CultureInfo currentLanguage = Thread.CurrentThread.CurrentUICulture;
+    string currentLanguageDisplayName = currentLanguage.NativeName.ToString();
+    switch (currentLanguageDisplayName)
+    {
+        case "English":
+            currentLanguageDisplayName = "Asia-Pacific";
+            break;
+        case "English (United States)":
+            currentLanguageDisplayName = "North America";
+            break;
+        case "English (American Samoa)":
+            currentLanguageDisplayName = "South America";
+            break;
+        case "English (Europe)":
+            currentLanguageDisplayName = "Europe";
+            break;
+        case "English (South Africa)":
+            currentLanguageDisplayName = "Africa";
+            break;
+        default:
+            break;
+    }
+}
+
+<div class="@Model.CssClass language-selector-dropdown">
+    <button class="language-selector-dropdown__button" type="button" id="languageSelectorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="language-selector-dropdown__button-text">@currentLanguageDisplayName</span>
+        <svg class="language-selector-dropdown__button-icon" aria-hidden="true">
+            <use href="~/ResourcePackages/Bootstrap4/assets/images/icon-globe.svg#icon-globe" />
+        </svg>
+    </button>
+    <div class="language-selector-dropdown__menu" aria-labelledby="languageSelectorDropdown">
+        @foreach (var language in Model.Languages)
+        {
+            <a class="language-selector-dropdown__item" data-culture="@language.Culture" href="#" @(Model.CurrentLanguage == language.Culture ? "data-current-language" : "")>
+                <div class="language-selector-dropdown__item-inner">
+                    @language.DisplayName
+                    @if (Model.CurrentLanguage == language.Culture)
+                    {
+                        <svg class="language-selector-dropdown__item-icon" aria-hidden="true">
+                            <use href="~/ResourcePackages/Bootstrap4/assets/images/icon-check.svg#icon-check" />
+                        </svg>
+                    }
+                </div>
+            </a>
+        }
+    </div>
+</div>

@@ -1,0 +1,70 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+
+
+
+@*used to get related image*@
+@using Telerik.Sitefinity.RelatedData;
+@using Telerik.Sitefinity.News.Model;
+@using Telerik.Sitefinity.Libraries.Model;
+
+
+
+
+<div class="@Model.CssClass">
+    <ul class="list-unstyled">
+        @foreach (var item in Model.Items)
+        {
+            var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix);
+
+            var contentItem = (item.DataItem as NewsItem);
+            var image = contentItem.GetRelatedItems<Image>("Image").ToList();
+
+            <div >
+                @if (image.Count() != 0)
+                {
+                    var selectedimage = image.FirstOrDefault();
+                    <img class="card__img js-object-fit" src="@selectedimage.Url" title="@selectedimage.AlternativeText" alt="@selectedimage.AlternativeText" />
+                }
+                else
+                {
+                    <img class="card__img js-object-fit" src="/ResourcePackages/dist/images/placeholder.jpg" title="" alt="" />
+                }
+            </div>
+
+
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+                <h3>
+                    <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@navigateUrl">@item.Fields.Title</a>
+                </h3>
+
+                <div>
+                    <span class="text-muted">
+                        @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
+                   
+                    </span>
+                    @Html.CommentsCount((string)navigateUrl, item.DataItem)
+                </div>
+
+           
+
+                <a href="@navigateUrl">@Html.Resource("FullStory")</a>
+
+             
+
+            </li>
+        }
+    </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new { currentPage = Model.CurrentPage,
+                        totalPagesCount = Model.TotalPagesCount.Value,
+                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate })
+    }
+
+</div>

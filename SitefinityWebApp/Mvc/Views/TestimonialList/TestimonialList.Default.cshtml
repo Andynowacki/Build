@@ -1,0 +1,38 @@
+﻿@model SitefinityWebApp.Mvc.Models.TestimonialList.TestimonialListViewModel
+
+
+<section class="testimonial widget-base@(Model.ContentLeft == true ? " testimonial--content-left" : "")" data-offset-bg="1">
+    <div class="container js-offset-bg-ruler">
+        <div class="row">
+            <div class="col-12 col-md-7@(Model.ContentLeft == false ? " offset-md-5" : "") bg-grey testimonial__content">
+                @if (Model.Testimonial != null)
+                {
+                    <div class="p-6 testimonial__content-wrapper">
+                        @if (@Model.Testimonial.ImageUrl != string.Empty)
+                        {
+                            <img src="@Model.Testimonial.ImageUrl" alt="@Model.Testimonial.ImageAlt" class="testimonial__company-image mb-3" />
+                        }
+
+                        <p class="m-0 mb-3 text-large testimonial__quote">@Model.Testimonial.Quote</p>
+                        @if (@Model.Testimonial.Name != string.Empty)
+                        {
+                            <p class="m-0 testimonial__name">@Model.Testimonial.Name</p>
+                        }
+                         @if (@Model.Testimonial.JobTitle != string.Empty)
+                        {
+                             <p class="m-0">@Model.Testimonial.JobTitle</p>
+                        }
+                        
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="testimonial__bg js-offset-bg-item">
+        @if (Model.Testimonial != null)
+        {
+            <img src="@Model.Testimonial.BGImageUrl" alt="@Model.Testimonial.BGImageAlt" class="testimonial__image" />
+        }
+    </div>
+</section>

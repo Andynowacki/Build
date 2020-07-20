@@ -1,0 +1,26 @@
+﻿@model SitefinityWebApp.Mvc.Models.USPList.USPListViewModel
+
+<section class="usp-list widget-base@(Model.GreyBG == true ? " bg-grey" : "")">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="usp-list__title">@Model.Title</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var usp in Model.USPItems)
+            {
+                <div class="col-12 col-md-6 item-wrapper">
+                    <img src="@usp.ImageUrl" alt="@usp.ImageAlt" class="item__image mb-1" />
+                    <h3 class="text-large mb-1">@usp.Title</h3>
+                    <p class="m-0">@usp.Description</p>
+
+                    @if(usp.LinkLabel != string.Empty)
+                    {
+                        <a href="@usp.LinkUrl" class="read-more mt-2">@usp.LinkLabel</a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>

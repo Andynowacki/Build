@@ -1,0 +1,39 @@
+﻿@model SitefinityWebApp.Mvc.Models.LocationList.LocationListViewModel
+
+@{
+    Layout = "~/MVC/Views/Shared/_WidgetBase.cshtml";
+    ViewBag.ExtraWidgetClasses = "location-list gradient-base";
+    ViewBag.WidgetTitle = Model.Title;
+    ViewBag.CenterTitle = false;
+}
+
+
+<div class="row">
+    @foreach (var loc in Model.LocationItems)
+    {
+        <div class="col-12 col-md-4 mt-3 location-list__item">
+            <h3 class="text-large mb-0">@loc.Title</h3>
+            @if (@loc.Address != string.Empty)
+            {
+                <p class="m-0 mt-1">@loc.Address</p>
+            }
+
+            <div class="mt-1">
+            @if (@loc.EmailAddress != string.Empty)
+            {
+                <div>
+                    <a href="mailto:@loc.EmailAddress.Replace(" ", "")" class="read-more read-more--no-arrow">@loc.EmailAddress</a>
+                </div>
+            }
+
+            @if (@loc.PhoneNumber != string.Empty)
+            {
+                <div>
+                    <a href="tel:@loc.PhoneNumber.Replace(" ", "")" class="read-more read-more--no-arrow">@loc.PhoneNumber</a>
+                </div>
+            }
+            </div>
+        </div>
+    }
+</div>
+

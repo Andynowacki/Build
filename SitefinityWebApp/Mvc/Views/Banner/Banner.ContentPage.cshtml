@@ -1,0 +1,28 @@
+﻿@model SitefinityWebApp.Mvc.Models.BannerViewModel
+
+<section class="banner banner--simple pt-8">
+    <div class="container">
+        <div class="row text-center justify-content-center">
+            <div class="col-12 col-md-8">
+                <h1 class="banner__title">@Model.Title</h1>
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <p class="text-large m-0 mt-3">@Html.Raw(Model.Description)</p>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Link))
+                {
+                    <div class="banner__cta-wrapper mt-4">
+                        @Html.Raw(Model.Link)
+                    </div>
+                }
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Image.SelectedSizeUrl))
+            {
+                <div class="col-12">
+                    <img src="@Model.Image.SelectedSizeUrl" title="@Model.Image.ImageTitle" alt="@Model.Image.ImageAlternativeText" class="mt-4" />
+                </div>
+            }
+        </div>
+    </div>
+</section>

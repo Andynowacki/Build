@@ -1,0 +1,31 @@
+﻿@model SitefinityWebApp.Mvc.Models.TextImageSplitViewModel
+
+<section class="text-image-split text-image-split--white text-image-split--@(Model.IsImageFirst == true ? "image-first" : "image-last") widget-base">
+    <div class="container js-offset-bg-ruler">
+        <div class="row align-items-center@(Model.IsImageFirst == false ? " flex-row-reverse" : "")">
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(Model.Image.SelectedSizeUrl))
+                {
+                    <img src="@Model.Image.SelectedSizeUrl" title="@Model.Image.ImageTitle" alt="@Model.Image.ImageAlternativeText" class="text-image-split__image mb-5" />
+                }
+            </div>
+            <div class="col-1 d-none d-md-block"></div>
+            <div class="col-md-5">
+                <h3 class="h6 mb-1 text-image-split__subtitle">@Model.Subtitle</h3>
+                <h2 class="mb-2">@Model.Title</h2>
+
+                <div>
+                    <p class="text-large mb-0">@Html.Raw(Model.Content)</p>
+                </div>
+
+                @if(!string.IsNullOrEmpty(Model.Link))
+                {
+                    <div class="text-image-split__link-wrapper mt-3">
+                        @Html.Raw(Model.Link)
+                    </div>
+                }
+            </div>
+        </div>
+      
+    </div>
+</section>

@@ -1,0 +1,76 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Telerik.Sitefinity.Modules.Pages
+@using Telerik.Sitefinity.Web.DataResolving
+
+
+@*used to get related image*@
+@using Telerik.Sitefinity.RelatedData;
+@using Telerik.Sitefinity.Events.Model;
+@using Telerik.Sitefinity.Libraries.Model;
+
+
+
+
+<div class="@Model.CssClass">
+    <ul class="content-list">
+        @foreach (var item in Model.Items)
+        {
+            var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix);
+            var contentItem = (item.DataItem as Event);
+            var image = contentItem.GetRelatedItems<Image>("Image").ToList();
+
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id) class="content-list__item content-list__item--border-bottom">
+                <div class="content-list__image-wrapper">
+
+                    @if (image.Count() != 0)
+                    {
+                        var selectedimage = image.FirstOrDefault();
+                        <img class="content-list__image" src="@selectedimage.Url" title="@selectedimage.AlternativeText" alt="@selectedimage.AlternativeText" />
+                    }
+                    else
+                    {
+                        <img class="content-list__image js-object-fit" src="/ResourcePackages/dist/images/placeholder.jpg" title="" alt="" />
+                    }
+                </div>
+
+                <div class="content-list__detail">
+                    <div class="events-list-detail">
+                        <div class="events-list-detail__time">
+                            <time>@item.EventDates()</time>
+                        </div>
+                        <h3 class="events-list-detail__title">
+                            <a @Html.InlineEditingFieldAttributes("Title", "ShortText") class="events-list-detail__title-link" href="@navigateUrl">@item.Fields.Title</a>
+                        </h3>
+                        <div class="events-list-detail__location">
+
+                            @*@If is on the same line, because otherwise there is an empty space before the comma*@
+                            @if (!string.IsNullOrEmpty(item.Fields.LocationName))
+                            {<span>@item.Fields.Location, </span>}
+                            @if (!string.IsNullOrEmpty(item.Fields.Street))
+                            {<span>@item.Fields.Street, </span>}
+                            @if (!string.IsNullOrEmpty(item.Fields.City))
+                            {<span>@item.Fields.City </span>}
+                            @if (!string.IsNullOrEmpty(item.Fields.State))
+                            {<span>@item.Fields.State </span>}
+                            @if (!string.IsNullOrEmpty(item.Fields.PostCode))
+                            {<span>@item.Fields.PostCode </span>}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new
+        {
+            currentPage = Model.CurrentPage,
+            totalPagesCount = Model.TotalPagesCount.Value,
+            redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+        })
+    }
+</div>

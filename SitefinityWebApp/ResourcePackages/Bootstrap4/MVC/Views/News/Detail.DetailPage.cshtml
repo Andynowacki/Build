@@ -1,0 +1,54 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Web;
+
+
+<div class="@Model.CssClass news-page-detail" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
+    <div class="news-page-detail__wrapper">
+        <div class="news-page-detail__pre-header">
+            <span class="news-page-detail__pre-header">
+                <time>@Model.Item.GetDateTime("PublicationDate", "dd MMM yyyy")</time>
+            </span>
+        </div>
+        <div class="news-page-detail__title">
+            <h1 class="news-page-detail__title-text" @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</h1>
+        </div>
+        <div class="news-page-detail__content content-area" @Html.InlineEditingFieldAttributes("Content", "LongText")>
+            @Html.HtmlSanitize((string)Model.Item.Fields.Content)
+        </div>
+        <div class="news-page-detail__tags">
+            <div class="tags">
+                <div class="tags__header">
+                    <h3 class="tags__header-text">Tags</h3>
+                </div>
+                @{
+                    var currentPageName = SiteMapBase.GetActualCurrentNode();
+                    var listPage = currentPageName.ParentNode as PageSiteNode;
+                    string currentPageUrl = listPage.Url.ToString().Replace("~/", "/");
+                }
+                <ul class="tags__list">
+                    @if (@Model.Item.Fields.Tags != null)
+                    {
+                        foreach (var taxon in @Model.Item.GetFlatTaxons("Tags"))
+                        {
+                            <li class="tags__list__item">
+                                <a class="tags__list__link" href="@currentPageUrl/-in-tags/tags/@taxon.UrlName.ToString()">@taxon.Title.ToString()</a>
+                            </li>
+                        }
+                    }
+                    @if (@Model.Item.Fields.Category != null)
+                    {
+                        foreach (var taxon in @Model.Item.GetHierarchicalTaxons("Category"))
+                        {
+                            <li class="tags__list__item">
+                                <a class="tags__list__link" href="@currentPageUrl/-in-categories/categories/@taxon.UrlName.ToString()">@taxon.Title.ToString()</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

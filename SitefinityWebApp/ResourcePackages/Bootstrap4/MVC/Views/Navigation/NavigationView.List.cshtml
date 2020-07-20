@@ -1,0 +1,23 @@
+﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.INavigationModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Modules.Pages;
+
+<nav class="menulist">
+    <ul class="menulist__wrapper">
+        @foreach (var node in Model.Nodes)
+        {
+            @RenderRootLevelNode(node);
+        }
+    </ul>
+</nav>
+
+@helper RenderRootLevelNode(NodeViewModel node)
+{
+    <li class="menulist__item">
+        <a class="menulist__link" href="@node.Url" target="@node.LinkTarget">
+            <span class="menulist__link-text">@node.Title</span>
+        </a>
+    </li>
+}

@@ -1,0 +1,8 @@
+@model SitefinityWebApp.Mvc.Models.YoutubeEmbed.YoutubeEmbedModel
+
+<div class="youtube-embed">
+    <img src="@Model.GetVideoThumbnail()" alt="Youtube Video Preview" />
+    <div class="youtube-embed__wrap">
+        <button class="youtube-embed__button" type="button" data-youtube-embed="@Model.ID"><span class="sr-only">Play Video</span></button>
+    </div>
+</div>

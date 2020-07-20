@@ -1,0 +1,22 @@
+assets:
+- SitefinityWebApp/ResourcePackages/Bootstrap4/assets
+
+theme:
+  logo: SitefinityWebApp/ResourcePackages/Bootstrap4/assets/images/logo.png
+  sidebar:
+    background: "#2E75EB"
+    textColor: "#fff"
+
+examples:
+  css: 
+    - SitefinityWebApp/ResourcePackages/Bootstrap4/assets/css/main.css
+  js: 
+    - SitefinityWebApp/ResourcePackages/Bootstrap4/assets/js/manifest.js
+    - SitefinityWebApp/ResourcePackages/Bootstrap4/assets/js/main.js
+  bodyHtml: |
+    <div style="padding: 20px">
+      {html}
+    </div>
+
+order:
+  - +Base

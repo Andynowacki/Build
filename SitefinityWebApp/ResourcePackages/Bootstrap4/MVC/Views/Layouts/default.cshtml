@@ -1,0 +1,241 @@
+﻿@using System.Web.Mvc;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Services;
+@using System.Threading;
+@using System.Web.Configuration;
+
+<!DOCTYPE html>
+<html @Html.RenderLangAttribute()>
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title></title>
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["GTM:ID"] != "0")
+    {
+        <script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','@WebConfigurationManager.AppSettings["GTM:ID"]');</script>
+    }
+
+    @Html.Section("head")
+    @Html.StyleSheet(Url.Content(@System.Web.Configuration.WebConfigurationManager.AppSettings["Asset:main.css"]), "head", true)
+</head>
+
+
+
+
+
+<body data-barba="wrapper">
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["GTM:ID"] != "0")
+    {
+        <noscript>
+            <iframe src='https://www.googletagmanager.com/ns.html?id=@WebConfigurationManager.AppSettings["GTM:ID"]'
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+    }
+    <div class="barba-loading-bar"></div>
+    <div data-barba="container" class="page-wrapper">
+        @Html.Section("top")
+        @Html.SfPlaceHolder("LanguageSelector")
+
+
+
+        <header class="header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-6 col-lg-2">
+
+
+
+
+                        @{
+
+
+                            var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
+                            string culture = currentUiCulture.Name;
+                            string url = "/";
+
+                            switch (culture)
+                            {
+                                case "en-US":
+
+                                    url = "/ca";
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+                        }
+
+
+
+                        <a href="@url" class="header__logo">
+
+                            <img src="/ResourcePackages/Bootstrap4/assets/images/logo-colour.png" alt="" />
+                            <span class="sr-only">INX Software</span>
+                        </a>
+                    </div>
+
+                    <div class="col-6 text-right d-lg-none">
+                        <button class="hamburger hamburger--slider" type="button" data-toggle="header-toggle">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                            <span class="sr-only">Toggle meun</span>
+                        </button>
+                    </div>
+
+                    <div class="col-12 col-lg-10 menu-toggle" id="header-toggle">
+                        <div class="header__link-wrapper">
+                            <div class="header__menu-wrapper">
+                                @Html.SfPlaceHolder("Menuplaceholder")
+                            </div>
+                            <div class="header__cta-wrapper">
+                                @Html.SfPlaceHolder("CTAPlaceholder")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="widget-wrapper">
+            @Html.SfPlaceHolder("Contentplaceholder1")
+        </main>
+
+        <footer class="footer py-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-2">
+                        <a href="/" class="footer__logo">
+                            <img src="/ResourcePackages/Bootstrap4/assets/images/logo-colour.png" alt="" />
+                            <span class="sr-only">INX Software</span>
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-10">
+                        <div class="footer__large-list">
+                            @Html.SfPlaceHolder("Topnavigationplaceholder")
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-10 offset-lg-2 pt-5">
+                        @Html.SfPlaceHolder("Bottomnavigationplaceholder")
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <section class="base py-3 bg-grey">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-6">
+                        <div class="base__legal-wrapper">
+                            <p class="mb-0 base__legal">Copyright &copy; @DateTime.Now.Year INX Software</p>
+                            @Html.SfPlaceHolder("LegalNavigationPlaceholder")
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="base__social-wrapper">
+                            @Html.SfPlaceHolder("SocialPlaceholder")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @* Inline editing scripts and helpers. They should be available only when inline editing is possible. *@
+        @*@Html.Section("inline-editing")
+            @if (Html.ShouldRenderInlineEditing())
+            {
+                @Html.Script(ScriptRef.MicrosoftAjax, "inline-editing", true)
+                @Html.Script(ScriptRef.MicrosoftAjaxCore, "inline-editing", true)
+                @Html.Script(ScriptRef.JQuery, "inline-editing", true)
+
+                @Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ba-outside-events.min.js"), "inline-editing", true)
+                @Html.Script(ScriptRef.KendoAll, "inline-editing", true)
+                @Html.Script(ScriptRef.KendoTimezones, "inline-editing", true)
+                @Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.RequireJS.require.min.js"), "inline-editing", true)
+                @Html.InlineEditingManager(false)
+            }*@
+        @Html.Section("bottom")
+
+
+        @Html.Script(Url.Content(@System.Web.Configuration.WebConfigurationManager.AppSettings["Asset:manifest.js"]), "bottom")
+        @Html.Script(Url.Content(@System.Web.Configuration.WebConfigurationManager.AppSettings["Asset:vendor.js"]), "bottom")
+        @Html.Script(Url.Content(@System.Web.Configuration.WebConfigurationManager.AppSettings["Asset:main.js"]), "bottom")
+
+
+
+    </div>
+
+    <div class="cookie-notice d-none" data-cookie-notice>
+        <div class="cookie-notice__wrapper container-fluid">
+            <div class="row align-items-center">
+                <div class="cookie-notice__description col-xs-12 col-md-7">
+                    We use cookies to improve your experience &amp; provide you with
+                    personalised ads. By clicking allow or navigating this site, you accept
+                    the use of these cookies. <a href="https://www.inxsoftware.com/legal/privacy">Learn more</a>
+                </div>
+                <div class="cookie-notice__cta col-xs-12 col-md">
+                    <button class="btn btn-secondary float-right js-cookie-notice-dismiss">Accept cookies</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["GTAG"] != "1")
+    {
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src='https://www.googletagmanager.com/gtag/js?id=@System.Web.Configuration.WebConfigurationManager.AppSettings["GTAG"]'></script>
+        <script>
+        window.__GA_ID__ = '@System.Web.Configuration.WebConfigurationManager.AppSettings["GTAG"]';
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+            gtag('config', '@System.Web.Configuration.WebConfigurationManager.AppSettings["GTAG"]');
+            gtag('config', '@System.Web.Configuration.WebConfigurationManager.AppSettings["GAdwordTAG"]'); // the google adwords campaign
+        </script>
+    }
+
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["Pardot"] != "0")
+    {
+
+        <!-- Pardot tag -->
+
+        <script type="text/javascript">
+            piAId = '471791';
+            piCId = '23377';
+            piHostname = 'pi.pardot.com';
+
+            (function () {
+                function async_load() {
+                    var s = document.createElement('script'); s.type = 'text/javascript';
+                    s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js';
+                    var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c);
+                }
+                if (window.attachEvent) { window.attachEvent('onload', async_load); }
+                else { window.addEventListener('load', async_load, false); }
+            })();
+        </script>
+
+    }
+</body>
+</html>

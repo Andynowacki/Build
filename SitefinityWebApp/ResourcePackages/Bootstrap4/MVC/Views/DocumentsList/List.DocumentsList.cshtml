@@ -1,0 +1,89 @@
+@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList.DocumentsListViewModel
+
+@using System;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
+
+
+@*used to get related tags and categories*@
+@using Telerik.Sitefinity.Web;
+
+
+
+<div class="@Model.CssClass resource-list">
+    <ul class="content-list">
+        @foreach (var item in Model.Items)
+        {
+            var currentPageName = SiteMapBase.GetActualCurrentNode();
+            var listPage = currentPageName as PageSiteNode;
+            string currentPageUrl = listPage.Url.ToString().Replace("~/", "/");
+
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id) class="content-list__item content-list__item--border-bottom">
+                <div class="content-list__detail content-list__detail--document-list">
+                    <div class="resource-list-detail">
+
+                        @if (item.Fields.Tags != null || item.Fields.Category != null)
+                        {
+                            <div class="resource-list-detail__tags">
+                                <ul class="resource-list-detail__tags-list">
+
+                                    @if (item.Fields.Tags != null)
+                                    {
+                                        foreach (var taxon in item.GetFlatTaxons("Tags"))
+                                        {
+                                            <li class="resource-list-detail__tags-list__item">
+                                                <a class="resource-list-detail__tags-list__link" href="@currentPageUrl/-in-tags/tags/@taxon.UrlName.ToString()">@taxon.Title.ToString()</a>
+                                            </li>
+                                        }
+                                    }
+
+                                    @if (item.Fields.Category != null)
+                                    {
+                                        foreach (var taxon in item.GetHierarchicalTaxons("Category"))
+                                        {
+                                            <li class="resource-list-detail__tags-list__item">
+                                                <a class="resource-list-detail__tags-list__link" href="@currentPageUrl/-in-categories/categories/@taxon.UrlName.ToString()">@taxon.Title.ToString()</a>
+                                            </li>                                            
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <div class="resource-list-detail__title">
+                            <a class="resource-list-detail__title-link" href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix)">
+                                <h3 class="resource-list-detail__title-text">@item.Fields.Title</h3>
+                            </a>
+                            <a class="resource-list-detail__title-link resource-list-detail__title-link--download href=" href="@item.Fields.MediaUrl" target="_blank">
+                                <span class="sr-only">@Html.Resource("Download")</span>
+                                <svg class="resource-list-detail__title-link__icon">
+                                    <use href="~/ResourcePackages/Bootstrap4/assets/images/icon-download.svg#icon-download" />
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="resource-list-detail__date">
+                            <div class="resource-list-detail__date-text">
+                                <time>@item.Fields.PublicationDate.ToString("dd MMM yyyy")</time>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+
+
+@if (Model.ShowPager)
+{
+    @Html.Action("Index", "ContentPager", new
+         {
+                 currentPage = Model.CurrentPage,
+                 totalPagesCount = Model.TotalPagesCount.Value,
+                 redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+         })
+}
+
+

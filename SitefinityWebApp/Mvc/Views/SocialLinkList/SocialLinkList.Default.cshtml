@@ -1,0 +1,15 @@
+﻿@model SitefinityWebApp.Mvc.Models.SocialLinkList.SocialLinkListViewModel
+
+<div class="social-links">
+    @foreach (var slink in Model.SocialLinkItems)
+    {
+        <a href="@slink.LinkUrl" target="_blank" class="social-links__link">
+            <img src="@slink.ImageUrl" alt="@slink.ImageAlt" class="greyscale-image" />
+
+            @if(slink.LinkLabel != string.Empty)
+            {
+                <span class="sr-only">@slink.LinkLabel</span>
+            }
+        </a>
+    }
+</div>

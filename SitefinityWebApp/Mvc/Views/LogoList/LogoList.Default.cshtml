@@ -1,0 +1,36 @@
+﻿@model SitefinityWebApp.Mvc.Models.LogoList.LogoListViewModel
+
+@{
+    Layout = "~/MVC/Views/Shared/_WidgetBase.cshtml";
+    ViewBag.WidgetTitle = Model.Title;
+    ViewBag.CenterTitle = true;
+}
+
+<div class="row justify-content-between align-items-center">
+    @foreach (var logo in Model.LogoItems)
+    {
+    <div class="col-6 col-md-4 col-lg-2 mt-3">
+        @if (@logo.LinkUrl != string.Empty)
+        {
+        <a href="@logo.LinkUrl" target="_blank" class="d-block">
+            <img src="@logo.ImageUrl" alt="@logo.ImageAlt" class="w-100 greyscale-image" />
+
+            @if (logo.LinkLabel != string.Empty)
+            {
+                <span class="sr-only">@logo.LinkLabel</span>
+            }
+        </a>
+        }
+        else {
+        <span class="d-block">
+            <img src="@logo.ImageUrl" alt="@logo.ImageAlt" class="w-100 greyscale-image" />
+
+            @if (logo.LinkLabel != string.Empty)
+            {
+                <span class="sr-only">@logo.LinkLabel</span>
+            }
+        </span>
+        }
+    </div>
+    }
+</div>

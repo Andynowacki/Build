@@ -1,0 +1,101 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+
+
+
+
+@*used to get related tags and categories*@
+@using Telerik.Sitefinity.Web;
+
+@*used to get related image*@
+@using Telerik.Sitefinity.RelatedData;
+@using Telerik.Sitefinity.Blogs.Model;
+@using Telerik.Sitefinity.Libraries.Model;
+
+
+<div class="@Model.CssClass">
+    <ul class="content-list">
+
+        @foreach (var item in Model.Items)
+        {
+        var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix);
+
+        var contentItem = (item.DataItem as BlogPost);
+        var image = contentItem.GetRelatedItems
+        <Image>
+            ("Image").ToList();
+
+
+
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id) class="content-list__item content-list__item--border-bottom">
+                <div class="content-list__image-wrapper">
+
+                    @if (image.Count() != 0)
+                    {
+                    var selectedimage = image.FirstOrDefault();
+                    <img class="content-list__image" src="@selectedimage.Url" title="@selectedimage.AlternativeText" alt="@selectedimage.AlternativeText" />
+                    }
+                    else
+                    {
+                    <img class="content-list__image" src="/ResourcePackages/Bootstrap4/assets/images/card-default.jpg" title="" alt="" />
+                    }
+                </div>
+
+                <div class="content-list__detail">
+                    <div class="blog-list-detail">
+                        <div class="blog-list-detail__tags">
+                            @{
+                            var currentPageName = SiteMapBase.GetActualCurrentNode();
+                            var listPage = currentPageName as PageSiteNode;
+                            string currentPageUrl = listPage.Url.ToString().Replace("~/", "/");
+                            }
+                            <ul class="blog-list-detail__tags-list">
+                                @if (item.Fields.Tags != null)
+                                {
+                                foreach (var taxon in item.GetFlatTaxons("Tags"))
+                                {
+                                <li class="blog-list-detail__tags-list__item">
+                                    <a class="blog-list-detail__tags-list__link" href="@currentPageUrl/-in-tags/tags/@taxon.UrlName.ToString()">@taxon.Title.ToString()</a>
+                                </li>
+                                }
+                                }
+
+                                @if (item.Fields.Category != null)
+                                {
+                                foreach (var taxon in item.GetHierarchicalTaxons("Category"))
+                                {
+                                <li class="blog-list-detail__tags-list__item">
+                                    <a class="blog-list-detail__tags-list__link" href="@currentPageUrl/-in-categories/categories/@taxon.UrlName.ToString()">@taxon.Title.ToString()</a>
+                                </li>
+                                }
+                                }
+                            </ul>
+                        </div>
+                        <h3 class="blog-list-detail__title">
+                            <a class="blog-list-detail__title-link" @Html.InlineEditingFieldAttributes("Title", "ShortText" ) href="@navigateUrl">@item.Fields.Title</a>
+                        </h3>
+                        <div class="blog-list-detail__post-date">
+                            @item.GetDateTime("PublicationDate", "dd MMM yyyy")
+                        </div>
+                        @*<a href="@navigateUrl">@Html.Resource("FullStory")</a>*@
+                    </div>
+                </div>
+            </li>
+            }
+    </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new
+        {
+            currentPage = Model.CurrentPage,
+            totalPagesCount = Model.TotalPagesCount.Value,
+            redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+        })
+    }
+</div>

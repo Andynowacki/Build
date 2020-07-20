@@ -1,0 +1,67 @@
+﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.INavigationModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@functions {
+    public static string EnableToggle(int ChildNodeCount, int itemNumber)
+    {
+        if (ChildNodeCount == 0)
+        {
+            return null;
+        }
+
+        return " data-toggle-mq=(max-width:768px) data-toggle=subpagelist-" + itemNumber;
+    }
+}
+
+<nav class="pagelist">
+    <ul class="pagelist__wrapper">
+        @{ 
+            int itemNumber = 0;
+        }
+        @foreach (var node in Model.Nodes)
+        {
+            @RenderRootLevelNode(node, itemNumber);
+
+            itemNumber++;
+        }
+    </ul>
+</nav>
+
+@helper RenderRootLevelNode(NodeViewModel node, int itemNumber)
+{
+    <li class="pagelist__item pr-7">
+        <a
+            class="pagelist__link"
+            href="@node.Url"
+            target="@node.LinkTarget"
+            @EnableToggle(node.ChildNodes.Count, itemNumber)
+            >
+            <span class="pagelist__link-text">@node.Title</span>
+
+            @if(node.ChildNodes.Count > 0)
+            {
+                <span class="pagelist__link-caret"></span>
+            }
+        </a>
+
+        @if (node.ChildNodes.Count > 0)
+        {
+            @RenderDropDown(node, itemNumber)
+        }
+    </li>
+}
+
+@helper RenderDropDown(NodeViewModel node, int itemNumber)
+{
+    <ul class="pagelist__subpagelist" id="subpagelist-@itemNumber">
+        @foreach (var childNode in node.ChildNodes)
+        {
+            <li class="pagelist__item">
+                <a class="pagelist__link" href="@childNode.Url" target="@childNode.LinkTarget">@childNode.Title</a>
+            </li>
+        }
+    </ul>
+}

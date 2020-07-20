@@ -1,0 +1,37 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+
+<div class="form-group">
+    <label for="title">Title</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="title" ng-model="properties.Title.PropertyValue" class="form-control" />
+        </div>
+    </div>
+</div>
+
+
+
+<hr class="side-to-side">
+
+
+<div class="form-group">
+    <label for="image-field" class="m-top-sm">Logo items</label>
+
+    <sf-list-selector sf-dynamic-items-selector
+                      sf-item-type="'Telerik.Sitefinity.DynamicTypes.Model.LogoGallery.Logo'"
+                      sf-master="false"
+                      sf-multiselect="true"
+                      sf-sortable="true"
+                      sf-selected-items="uspSelector.selectedItems"
+                      sf-selected-item-ids="uspSelector.selectedItemsId"
+                      sf-provider="provider"></sf-list-selector>
+
+</div>
+
+
+

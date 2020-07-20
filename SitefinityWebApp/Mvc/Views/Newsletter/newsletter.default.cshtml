@@ -1,0 +1,17 @@
+﻿@model  SitefinityWebApp.Mvc.Models.NewsletterModel
+
+<section class="newsletter-signup">
+    <div class="container">
+        <div class="newsletter-signup__inner">
+            <div class="newsletter-signup__title">
+                <h3 class="newsletter-signup__title-text">@Model.Title</h3>
+            </div>
+            <div class="newsletter-signup__subtitle">
+                <p class="newsletter-signup__subtitle-text">@Model.SubTitle</p>
+            </div>
+            <div class="newsletter-signup__content">
+                <iframe height="@Model.Height" class="newsletter-signup__iframe" src="@Model.ContentUrl" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</section>

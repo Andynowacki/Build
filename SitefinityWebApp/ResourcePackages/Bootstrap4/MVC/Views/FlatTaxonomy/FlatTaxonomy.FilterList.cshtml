@@ -1,0 +1,48 @@
+﻿@model Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.TaxonomyViewModel
+@using Telerik.Sitefinity.Web;
+
+@{
+    string currentPageUrl = SiteMapBase.GetActualCurrentNode().Url.ToString().Replace("~", "");
+}
+
+
+<div class="container filter-list__wrapper">
+    <div class="row">
+        <div class="col-12">
+            <ul class="@Model.CssClass filter-list">
+                <li
+                    role="button"
+                    aria-labelledby="filter-list-label"
+                    id="filter-list__selected"
+                    tabindex="0"
+                >
+                    <span class="label">All Documents</span>
+                </li>
+
+                <svg
+                    class="filter-list__arrow"
+                    width="10"
+                    height="5"
+                    viewBox="0 0 10 5"
+                    fill-rule="evenodd"
+                >
+                    <title>Open drop down</title>
+                    <path d="M10 0L5 5 0 0z"></path>
+                </svg>
+                <li aria-expanded="false" role="list" class="filter-list__list-container">
+                    <ul class="filter-list__list">
+                        <li class="filter-list__list-item" tabindex="0" id="option-all">
+                            <a href="@currentPageUrl">All Documents</a>
+                        </li>
+                        @foreach (var item in Model.Taxa.Select((value, i) => new {i, value}))
+                        {
+                            <li class="filter-list__list-item" tabindex="0" id="option-@item.i">
+                                <a href="@item.value.Url">@item.value.Title</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

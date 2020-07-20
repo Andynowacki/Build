@@ -1,0 +1,47 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+<div class="form-group">
+    <label for="title">Title</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="title" ng-model="properties.Title.PropertyValue" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="title">Sub Title</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="title" ng-model="properties.SubTitle.PropertyValue" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="contenturl">ContentUrl</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="contenturl" ng-model="properties.ContentUrl.PropertyValue" class="form-control" />
+
+        </div>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label for="height">Height ( numeric value only in px )</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="height" ng-model="properties.Height.PropertyValue" class="form-control" />
+
+        </div>
+    </div>
+</div>

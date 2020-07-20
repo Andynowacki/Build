@@ -1,0 +1,63 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+<div class="form-group">
+    <label for="title">Title</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="title" ng-model="properties.Title.PropertyValue" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="contentInput">Content</label>
+    <div class="row">
+        <div class="col-xs-12">
+            <textarea class="form-control" id="contentInput" ng-model="properties.Content.PropertyValue" />
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="checkbox">
+                <label for="centertext">
+                    <input type="checkbox" id="centertext" ng-model="properties.CenterText.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.CenterText.PropertyValue === 'True'" />
+                    Center Text?
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="side-to-side">
+
+
+<div class="form-group">
+    <label for="image-field" class="m-top-sm">Pages</label>
+
+    <sf-list-selector sf-page-selector   sf-multiselect="true" sf-sortable="true" sf-selected-ids="uspSelector.selectedItemsId" sf-selected-items="uspSelector.selectedItems"></sf-list-selector>
+
+</div>
+
+<div class="form-group">
+    <label for="templateName">Template</label>
+    <div class="row">
+        <div class="col-xs-6">
+            <select id="templateName" ng-model="properties.Template.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("CardList", @"CardList\.(?<viewName>[\w\s]*)$"))
+                {
+                    <option value="@viewName">@viewName.SplitCamelCase()</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+
+

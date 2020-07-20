@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitefinityWebApp", "SitefinityWebApp\SitefinityWebApp.csproj", "{F98D9609-F6C5-4374-84F0-7A1843FB71AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitefinityWebAppTests", "SitefinityWebAppTests\SitefinityWebAppTests.csproj", "{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Local|Any CPU = Local|Any CPU
+		Production|Any CPU = Production|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Staging|Any CPU = Staging|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Debug|Any CPU.ActiveCfg = Staging|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Debug|Any CPU.Build.0 = Staging|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Local|Any CPU.ActiveCfg = Local|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Local|Any CPU.Build.0 = Local|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Production|Any CPU.Build.0 = Production|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Release|Any CPU.ActiveCfg = Staging|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Release|Any CPU.Build.0 = Staging|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{F98D9609-F6C5-4374-84F0-7A1843FB71AB}.Staging|Any CPU.Build.0 = Staging|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Local|Any CPU.ActiveCfg = Release|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Local|Any CPU.Build.0 = Release|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Production|Any CPU.ActiveCfg = Release|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Production|Any CPU.Build.0 = Release|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{0ACC7971-EC75-4FD3-BD2D-CB7A8A25F163}.Staging|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCB9BE0D-7DE8-4ADE-A946-606A9FCA913B}
+	EndGlobalSection
+EndGlobal

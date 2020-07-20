@@ -1,0 +1,10 @@
+{
+  "priority": 1,
+  "components": [
+    "sf-image-field",
+    "sf-style-dropdown",
+    "sf-page-selector",
+    "sf-link-selector",
+    "sf-dynamic-items-selector"
+  ]
+}

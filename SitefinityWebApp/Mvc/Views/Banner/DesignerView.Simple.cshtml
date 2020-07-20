@@ -1,0 +1,78 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+
+<div class="form-group">
+    <label for="title">Title</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="title" ng-model="properties.Title.PropertyValue" class="form-control" />
+            <p class="help-block">This field will inherit the current page title by default. If you would like to override this, then please enter a value.</p>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="contentInput">Content</label>
+    <div class="row">
+        <div class="col-xs-12">
+            <textarea class="form-control" id="contentInput" ng-model="properties.Description.PropertyValue" />
+        </div>
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    <label for="title">Video Id</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="title" ng-model="properties.YouTubeId.PropertyValue" class="form-control" />
+            <p class="help-block">
+
+                This field is used to display a YouTube video on the Home and Default templates. Please enter just the video ID. You can get the ID from the URL, see the bolded part of this URL: https://www.youtube.com/watch?v=<strong>qq1XjCBTONc</strong>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<hr class="side-to-side">
+
+<div class="form-group">
+    <label for="image-field" class="m-top-sm">Image</label>
+    <sf-image-field class="sf-Media--info modal-settings modal-settings-space"
+                    sf-model="properties.ImageId.PropertyValue"
+                    sf-image="selectedImage"
+                    sf-provider="properties.ImageProviderName.PropertyValue"
+                    sf-media-settings="@SettingsHelpers.GetMediaSettings("Image")"
+                    id="image-field"></sf-image-field>
+</div>
+
+
+
+<div class="form-group">
+    <label for="image-field" class="m-top-sm">Call to action</label>
+
+    <sf-link-selector sf-link-html="currentLink" sf-selected-item="proxy.selectedItem"
+                      sf-editor-content=""></sf-link-selector>
+</div>
+
+
+<div class="form-group">
+    <label for="templateName">Template</label>
+    <div class="row">
+        <div class="col-xs-6">
+            <select id="templateName" ng-model="properties.Template.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("Banner", @"Banner\.(?<viewName>[\w\s]*)$"))
+                {
+                    <option value="@viewName">@viewName.SplitCamelCase()</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>

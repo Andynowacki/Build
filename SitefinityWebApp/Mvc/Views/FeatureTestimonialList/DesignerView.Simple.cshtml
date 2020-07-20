@@ -1,0 +1,39 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+
+
+<hr class="side-to-side">
+
+
+<div class="form-group">
+    <label for="image-field" class="m-top-sm">Feature Testimonials</label>
+
+    <sf-list-selector sf-dynamic-items-selector
+                      sf-item-type="'Telerik.Sitefinity.DynamicTypes.Model.Testimonials.Testimonial'"
+                      sf-master="false"
+                      sf-multiselect="true"
+                      sf-sortable="true"
+                      sf-selected-items="itemSelector.selectedItems"
+                      sf-selected-item-ids="itemSelector.selectedItemsId"
+                      sf-provider="provider"></sf-list-selector>
+
+</div>
+
+
+<div class="form-group">
+    <label for="templateName">Template</label>
+    <div class="row">
+        <div class="col-xs-6">
+            <select id="templateName" ng-model="properties.Template.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("FeatureTestimonialList", @"FeatureTestimonialList\.(?<viewName>[\w\s]*)$"))
+                {
+                    <option value="@viewName">@viewName.SplitCamelCase()</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+

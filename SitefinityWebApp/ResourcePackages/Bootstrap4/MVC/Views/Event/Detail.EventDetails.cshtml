@@ -1,0 +1,111 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
+
+@using Telerik.Sitefinity.Frontend.Events.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+@*used to get related image*@
+@using Telerik.Sitefinity.RelatedData;
+@using Telerik.Sitefinity.Events.Model;
+@using Telerik.Sitefinity.Libraries.Model;
+
+
+<div class="@Model.CssClass event-page-detail" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
+    <div class="event-page-detail__wrapper">
+    @if (!string.IsNullOrEmpty(Model.Item.EventDates()))
+    {
+
+        <div class="event-page-detail__publication-date">
+            <span class="event-page-detail__publication-date-text"><time>@Model.Item.EventDates()</time></span>
+        </div>
+    }
+        <div class="event-page-detail__title">
+            <h1 class="event-page-detail__title-text" @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</h1>
+        </div>
+        <div class="event-page-detail__image-wrapper">
+        @{
+            var contentItem = (Model.Item.DataItem as Event);
+            var image = contentItem.GetRelatedItems<Image>("Image").ToList();
+        }
+        @if (image.Count() != 0)
+        {
+            var selectedimage = image.FirstOrDefault();
+            <img class="event-page-detail__image" src="@selectedimage.Url" title="@selectedimage.AlternativeText" alt="@selectedimage.AlternativeText" />
+        }
+        else
+        {
+            <img class="event-page-detail__image" src="/ResourcePackages/Bootstrap4/assets/images/card-default.jpg" title="" alt="" />
+        }
+        </div>
+    </div>
+    <div class="event-page-detail__wrapper event-page-detail__wrapper--content">
+        <div class="event-page-detail__meeting-info">
+            <div class="meeting-info">
+                @if (!string.IsNullOrEmpty(Model.Item.EventDates()))
+                {
+                <div class="meeting-info__item meeting-info__item--date-time">
+                    <h3 class="meeting-info__item__title">Date & Time</h3>
+                    <div class="meeting-info__item__content">
+                        <time>@Model.Item.EventDates()</time>
+                    </div>
+                </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Item.Fields.City) || !string.IsNullOrEmpty(Model.Item.Fields.Country))
+                {
+                <div class="meeting-info__item meeting-info__item--location">
+                    <h3 class="meeting-info__item__title">Location / Venue</h3>
+                    <div class="meeting-info__item__content">
+                        <address class="meeting-info__item__content__address">
+                            <span class="meeting-info__item__content__location"></span>
+                            @if (!string.IsNullOrEmpty(Model.Item.Fields.Street))
+                            {
+                            <span>@Model.Item.Fields.Street,</span>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Item.Fields.City) && !string.IsNullOrEmpty(Model.Item.Fields.Country))
+                            {
+                            <span>@Model.Item.Fields.City,  @Model.Item.Fields.Country,</span>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Item.Fields.State))
+                            {
+                            <span>@Model.Item.Fields.State</span>
+                            }
+                        </address>
+                        @if (!string.IsNullOrEmpty(Model.Item.Fields.Street) && !string.IsNullOrEmpty(Model.Item.Fields.City) )
+                        {
+                            string encodeaddress = Model.Item.Fields.Street + " " + Model.Item.Fields.City + " " + Model.Item.Fields.State;
+                            var address = HttpUtility.UrlEncode(encodeaddress);
+                        <div class="meeting-info__item__content__map-link">
+                            <a href="https://maps.google.com/?saddr=Current+Location&daddr=@address">View map</a>
+                        </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Item.Fields.Location))
+            {
+
+                <div class="meeting-info__item meeting-info__item--booth">
+                    <h3 class="meeting-info__item__title">Booth</h3>
+                    <div class="meeting-info__item__content">
+                        @*How to find us field*@
+                        @Model.Item.Fields.Location
+                    </div>
+                </div>
+            }
+                @if (!string.IsNullOrEmpty(Model.Item.Fields.Link) && !string.IsNullOrEmpty(Model.Item.Fields.LinkLabel))
+                {
+                <div class="meeting-info__cta" @Html.InlineEditingFieldAttributes("Link", "LongText")>
+                    <a class="btn btn-primary btn--full-width" href="@Html.HtmlSanitize((string)Model.Item.Fields.Link)">@Model.Item.Fields.LinkLabel</a>
+                </div>
+                }
+            </div>
+        </div>
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.Content))
+    {
+        <div class="event-page-detail__content content-area"  @Html.InlineEditingFieldAttributes("Content", "LongText")>
+            @Html.HtmlSanitize((string)Model.Item.Fields.Content)
+        </div>
+    }
+    </div>
+</div>

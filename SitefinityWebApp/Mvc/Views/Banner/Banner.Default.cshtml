@@ -1,0 +1,44 @@
+﻿@model SitefinityWebApp.Mvc.Models.BannerViewModel
+
+@using SitefinityWebApp.Mvc.Models.YoutubeEmbed;
+
+@{
+    bool hasVideo = !string.IsNullOrEmpty(Model.YouTubeId);
+}
+
+<section class="banner pt-6 pb-7"> 
+    <div class="banner__bg">
+
+    @if (!string.IsNullOrEmpty(Model.Image.SelectedSizeUrl))
+    {
+        <img src="@Model.Image.SelectedSizeUrl" title="@Model.Image.ImageTitle" alt="@Model.Image.ImageAlternativeText" class="text-image-split__image mb-3" />
+    }
+    </div>
+    <div class="container">
+        <div class='row@(hasVideo ? "" : " justify-content-center")'>
+            <div class='col-12 @(hasVideo ? "col-md-5 text-left" : "col-md-8 text-center")'>
+                <h1 class="banner__title">@Model.Title</h1>
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <p class="text-large m-0 mt-3">@Html.Raw(Model.Description)</p>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Link))
+                {
+                    <div class="banner__cta-wrapper mt-4">
+                        @Html.Raw(Model.Link)
+                    </div>
+                }
+            </div>
+            @if (hasVideo)
+            {
+                <div class="col-12 col-md-6 offset-md-1">
+                @Html.Partial(
+                    "~/MVC/Views/Shared/YoutubePlayer/_YoutubePlayer.cshtml",
+                    new YoutubeEmbedModel { ID = Model.YouTubeId }
+                )
+                </div>
+            }
+        </div>
+    </div>
+</section>

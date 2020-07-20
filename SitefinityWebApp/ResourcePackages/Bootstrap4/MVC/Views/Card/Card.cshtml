@@ -1,0 +1,35 @@
+@model Telerik.Sitefinity.Frontend.Card.Mvc.Models.Card.CardViewModel
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<div class="card card--large d-block pt-7">
+    <div class="card__bg gradient-base"></div>
+    <div class="py-7">
+        <div class="container">
+            <div class="row justify-content-center">
+                @if (!string.IsNullOrEmpty(Model.SelectedSizeUrl))
+                {
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <img class="card__image mb-6 rounded shadow" src="@Model.SelectedSizeUrl" title="@Model.ImageTitle" alt="@Model.ImageAlternativeText" />
+                        </div>
+                    </div>
+                }
+                <div class="col-md-6 text-center">
+                    @if (!string.IsNullOrEmpty(Model.Heading))
+                    {
+                        <h2 class="h1 mb-0">@Html.HtmlSanitize(Model.Heading)</h2>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <p class="text-large mt-3">@Html.HtmlSanitize(Model.Description)</p>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.ActionName))
+                    {
+                        <a class="btn btn-primary mt-4" href="@Html.UrlSanitize(Model.ActionUrl)">@Model.ActionName</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,50 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+@*used to get related image*@
+@using Telerik.Sitefinity.RelatedData;
+@using Telerik.Sitefinity.News.Model;
+@using Telerik.Sitefinity.Libraries.Model;
+
+<div class="@Model.CssClass news-list">
+    <div class="news-list__wrapper">
+        @foreach (var item in Model.Items)
+        {
+            var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, Model.UrlKeyPrefix);
+            var contentItem = (item.DataItem as NewsItem);
+            var image = contentItem.GetRelatedItems<Image>("Image").ToList();
+
+            <div class="col-12 col-md-4 card-list__card-wrapper" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+                <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@navigateUrl" class="card card--contextual rounded mt-3">
+                    <div class="card__image-wrapper">
+                        @if (image.Count() != 0)
+                        {
+                            var selectedimage = image.FirstOrDefault();
+                            <img class="card__img js-object-fit" src="@selectedimage.Url" title="@selectedimage.AlternativeText" alt="@selectedimage.AlternativeText" />
+                        }
+                        else
+                        {
+                            <img class="card__img js-object-fit" src="/ResourcePackages/Bootstrap4/assets/images/placeholder.jpg" title="" alt="" />
+                        }
+                    </div>
+                    <div class="card__content-wrapper px-3 py-2">
+                        <p class="text-muted mb-1">@item.GetDateTime("PublicationDate", "dd MMM yyyy")</p>
+                        <p class="h4 mb-1">@item.Fields.Title</p>
+                        <span class="card__more read-more mt-auto">Read more</span>
+                        @* @Html.CommentsCount((string)navigateUrl, item.DataItem) *@
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new { currentPage = Model.CurrentPage,
+                        totalPagesCount = Model.TotalPagesCount.Value,
+                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate })
+    }
+</div>

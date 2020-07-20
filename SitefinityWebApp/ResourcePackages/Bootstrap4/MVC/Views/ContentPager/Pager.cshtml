@@ -1,0 +1,41 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<nav role="navigation" aria-label="@Html.Resource("Pagination")" class="pagination">
+    <ul class="pagination__list">
+        @if (Model.PreviousNode != null)
+        {
+            <li class="pagination__list-item pagination__list-item--previous">
+                <a class="pagination__list-item__link" href="@String.Format(Model.RedirectUrlTemplate, Model.PreviousNode.PageNumber)" aria-label="@Html.Resource("GoToPreviousPage")">
+                    <span class="pagination__list-item__link-icon" aria-hidden="true"></span>
+                    <span class="pagination__list-item__link-text">Previous page</span>
+                </a>
+            </li>
+        }
+        @foreach (var page in Model.PagerNodes.OrderBy(x => x.PageNumber))
+        {
+            if (Model.CurrentPage == page.PageNumber)
+            {
+                <li class="pagination__list-item pagination__list-item--active">
+                    <a class="pagination__list-item__link" aria-current="true" href="@String.Format(Model.RedirectUrlTemplate, page.PageNumber)" aria-label="@Html.Resource("Page") @page.PageNumber">@page.PageNumber</a>
+                </li>
+            }
+            else
+            {
+                <li class="pagination__list-item">
+                    <a class="pagination__list-item__link" href="@String.Format(Model.RedirectUrlTemplate, page.PageNumber)" aria-label="@Html.Resource("GoToPage") @page.PageNumber">@page.PageNumber</a>
+                </li>
+            }
+        }
+        @if (Model.NextNode != null)
+        {
+            <li class="pagination__list-item pagination__list-item--next">
+                <a class="pagination__list-item__link" href="@String.Format(Model.RedirectUrlTemplate, Model.NextNode.PageNumber)" aria-label="@Html.Resource("GoToNextPage")">
+                    <span class="pagination__list-item__link-text">Next page</span>
+                    <span class="pagination__list-item__link-icon" aria-hidden="true"></span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

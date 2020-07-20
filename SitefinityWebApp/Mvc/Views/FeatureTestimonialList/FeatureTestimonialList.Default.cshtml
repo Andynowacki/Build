@@ -1,0 +1,56 @@
+﻿@model SitefinityWebApp.Mvc.Models.FeatureTestimonialList.FeatureTestimonialListViewModel
+@using SitefinityWebApp.Mvc.Models.YoutubeEmbed;
+
+<div class="feature-testimonial-list">
+    <ul class="content-list">
+        @foreach (var testimonialitem in Model.TestimonialList)
+        {
+            if (testimonialitem != null)
+            {
+                <li class="content-list__item justify-content-center">
+                    <div class="content-list__detail content-list__detail--feature-testimonials">
+                        <div class="feature-testimonial-list-detail">
+                            @* TODO: BE replace n79jSzKA0L8 value with youtube video id*@
+                            @if (testimonialitem.YouTubeLink != string.Empty)
+                            {
+                                <div class="feature-testimonial-list-detail__video">
+                                    @if (!string.IsNullOrEmpty(testimonialitem.YouTubeLink))
+                                    {
+                                        @Html.Partial(
+                                            "~/MVC/Views/Shared/YoutubePlayer/_YoutubePlayer.cshtml",
+                                            new YoutubeEmbedModel { ID = testimonialitem.YouTubeLink }
+                                        )
+                                    }
+                                </div>
+                            }
+
+                            @if (testimonialitem.ImageUrl != string.Empty)
+                            {
+                                <div class="feature-testimonial-list-detail__image-wrapper">
+                                    <img src="@testimonialitem.ImageUrl" alt="@testimonialitem.ImageAlt" class="feature-testimonial-list-detail__image" />
+                                </div>
+                            }
+
+                            <div class="feature-testimonial-list-detail__quote">
+                                <p class="feature-testimonial-list-detail__quote-text">@testimonialitem.Quote</p>
+                            </div>
+
+                            <div class="feature-testimonial-list-detail__attribution">
+                                @if (testimonialitem.Name != string.Empty)
+                                {
+                                    <p class="feature-testimonial-list-detail__attribution-text">@testimonialitem.Name</p>
+                                }
+                                @if (testimonialitem.JobTitle != string.Empty)
+                                {
+                                    <p class="feature-testimonial-list-detail__attribution-text">@testimonialitem.JobTitle</p>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            }
+        }
+    </ul>
+</div>

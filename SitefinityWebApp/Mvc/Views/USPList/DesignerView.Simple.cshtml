@@ -1,0 +1,61 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
+
+@Html.QueryBuilderScriptReferences()
+
+
+<div class="form-group">
+    <label for="title">Title</label>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input id="title" ng-model="properties.Title.PropertyValue" class="form-control" />
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="checkbox">
+                <label for="greybg">
+                    <input type="checkbox" id="greybg" ng-model="properties.GreyBG.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.GreyBG.PropertyValue === 'True'" />
+                    Apply grey background to widget?
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="side-to-side">
+
+
+<div class="form-group">
+    <label for="image-field" class="m-top-sm">USP's</label>
+
+    <sf-list-selector sf-dynamic-items-selector
+                      sf-item-type="'Telerik.Sitefinity.DynamicTypes.Model.USP.Usp'"
+                      sf-master="false"
+                      sf-multiselect="true"
+                      sf-sortable="true"
+                      sf-selected-items="uspSelector.selectedItems"
+                      sf-selected-item-ids="uspSelector.selectedItemsId"
+                      sf-provider="provider"></sf-list-selector>
+
+</div>
+
+<div class="form-group">
+    <label for="templateName">Template</label>
+    <div class="row">
+        <div class="col-xs-6">
+            <select id="templateName" ng-model="properties.Template.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("USPList", @"USPList\.(?<viewName>[\w\s]*)$"))
+                {
+                    <option value="@viewName">@viewName.SplitCamelCase()</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+

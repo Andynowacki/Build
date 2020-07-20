@@ -1,0 +1,43 @@
+{
+  "name": "inx-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "styleguide:watch": "stylemark -i Isobar.FED/templates -o SitefinityWebApp/styleguide -c .stylemark.yml -w -b",
+    "styleguide:prod": "stylemark -i Isobar.FED/templates -o SitefinityWebApp/styleguide -c .stylemark.yml",
+    "prod": "cross-env NODE_ENV=production node_modules/.bin/webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dev": "cross-env NODE_ENV=development node_modules/.bin/webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/.bin/webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "build": "npm run prod && npm run styleguide:prod"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-arrow-functions": "^7.7.4",
+    "browser-sync-webpack-plugin": "^2.0.1",
+    "copy-webpack-plugin": "^5.0.5",
+    "cross-env": "^6.0.3",
+    "imagemin-webpack-plugin": "^2.4.2",
+    "laravel-mix": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "replace-in-files": "^2.0.3",
+    "sass-loader": "^8.0.0",
+    "stylemark": "^3.1.3",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "@barba/core": "^2.9.6",
+    "@barba/css": "^2.1.15",
+    "bootstrap": "^4.3.1",
+    "gsap": "^3.0.4",
+    "hamburgers": "^1.1.3",
+    "jquery": "^3.4.1",
+    "lodash.debounce": "^4.0.8",
+    "quicklink": "^2.0.0-alpha",
+    "youtube-player": "^5.5.2"
+  }
+}

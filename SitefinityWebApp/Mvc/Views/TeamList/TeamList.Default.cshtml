@@ -1,0 +1,34 @@
+﻿@model SitefinityWebApp.Mvc.Models.TeamList.TeamListViewModel
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+
+
+<section class="team-list widget-bas">
+    <div class="container">
+        <div class="row">
+            @foreach (var member in Model.TeamItems)
+            {
+                <div class="col-12 team-list__item">
+                    <div class="team-list__image-wrapper">
+                        <img src="@(member.ImageUrl == string.Empty ? "/ResourcePackages/Bootstrap4/assets/images/card-default.jpg"
+                        : member.ImageUrl)" alt="@(member.ImageAlt == string.Empty ? member.Title : member.ImageAlt)"
+                             class="team-list__image" />
+                        @if (member.LinkedinUrl != string.Empty)
+                        {
+                            <a href="@member.LinkedinUrl" class="team-list__image-icon team-list__image-icon--linkedin">
+                                <img src="/ResourcePackages/Bootstrap4/assets/images/icon-linkedin.svg" alt="linkedinIcon"
+                                     class="team-list__image" />
+                            </a>
+                        }
+                    </div>
+
+                    <div class="team-list__text-wrapper">
+                        <h3 class="team-list__job-title">@member.JobTitle</h3>
+                        <h2 class="team-list__title">@member.Title</h2> @*the name of the person*@
+                        <div class="team-list__description">@Html.HtmlSanitize((string)@member.Description)</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

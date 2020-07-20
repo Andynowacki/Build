@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /sitefinity
+
+Sitemap: https://www.inxsoftware.com/sitemap/sitemap.xml
